@@ -1,0 +1,17 @@
+.Header {
+    background-color: #282c34;
+    /* min-height: 15vh;
+    max-height: 15vh; */
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    font-size: 1.5rem;
+    color: white;
+    padding-left: 3%;
+    padding-right: 3%;
+}
+.Title {
+    margin: 1%;
+}
