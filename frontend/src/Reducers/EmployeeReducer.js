@@ -1,13 +1,13 @@
-import { GET_EMPLOYEES, ADD_EMPLOYEE, EDIT_EMPLOYEE, SELECT_EMPLOYEE } from "../Actions/ActionTypes";
+import { GET_EMPLOYEES, ADD_EMPLOYEE, EDIT_EMPLOYEE, SELECT_EMPLOYEE, DELETE_EMPLOYEE } from "../Actions/ActionTypes";
 
-const initialState = { allEmployees: [], selectedEmployee: {}, isReady: false}
+const initialState = { allEmployees: [], selectedEmployee: {}, isReady: false }
 
 function EmployeeReducer(state = initialState, action){
     if (action.type === GET_EMPLOYEES){
         return Object.assign({}, state, {
             allEmployees: action.payload,
             isReady: true
-        })
+        });
     }
 
     if (action.type === ADD_EMPLOYEE){
@@ -16,7 +16,7 @@ function EmployeeReducer(state = initialState, action){
         const newEmployees = employeeList.concat(newEmployee);
         return Object.assign({}, state, {
             allEmployees: newEmployees
-        }) 
+        });
     }
 
     if (action.type === EDIT_EMPLOYEE){
@@ -26,13 +26,19 @@ function EmployeeReducer(state = initialState, action){
         newEmployeesList[indexOfOldEmployee] = newEmployee;
         return Object.assign({}, state, {
             allEmployees: newEmployeesList
-        })
+        });
     }
 
     if (action.type === SELECT_EMPLOYEE){
         return Object.assign({}, state, {
             selectedEmployee: action.payload
-        })
+        });
+    }
+
+    if (action.type === DELETE_EMPLOYEE){
+        return Object.assign({}, state, {
+            allEmployees: state.allEmployees.filter(({ id }) => id !== action.payload)
+        });
     }
 }
 

@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Table } from 'reactstrap';
-import { connect } from "react-redux";
+import React from 'react';
+import { Table } from 'reactstrap';
+import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 
 import '../Styles/Body.css';
+import { deleteEmployee } from '../Actions/UserActions';
 
-// function mapStateToProps(state){
-//     return {
-//         allEmployees: state.allEmployees,
-//         selectedEmployee: state.selectedEmployee,
-//         isReady: state.isReady
-//     }
-// }
+function mapDispatchToProps(dispatch){
+    return{
+        getEmployees: employeeID => dispatch(deleteEmployee(employeeID))
+    }
+}
 
 function EmployeeTable(props){
-    console.log(props)
-    const [allEmployees, setAllEmployees] = useState([]);
-    useEffect(() => {
-        if (allEmployees){
-            setAllEmployees(props.allEmployees)
-        }
-    }, [])
+    let history = useHistory();
+    const routeToEditPage = (id) =>{
+        history.push('/employee/edit')
+    }
+
+    const allEmployees = props.allEmployees;
     const employeeTable = 
     <Table className="mt-4" style={{background:'white', margin:'1%', padding:"1%", borderRadius:"5px", border:"hidden"}}>
         <tbody>
@@ -43,12 +41,12 @@ function EmployeeTable(props){
             <td style={{whiteSpace: 'nowrap', width: "20%", textAlign:'left', verticalAlign:'middle'}}>{employee.number}</td>
             <td style={{whiteSpace: 'nowrap', width: "20%", textAlign:'left', verticalAlign:'middle'}}>{employee.gender}</td>
             <td style={{width:"5%", textAlign: 'right'}}>
-                <IconButton onClick={()=>{this.props.selectedEmployee = {employee}}} className="EditButton">
+                <IconButton onClick={()=>{routeToEditPage(employee)}} className="EditButton">
                     <EditIcon />
                 </IconButton>
             </td>
             <td style={{width:"5%", textAlign:'left'}}>
-                <IconButton onClick={()=>{if (window.confirm("Are you sure?")) {}}} className="DeleteButton">
+                <IconButton onClick={()=>{if (window.confirm("Are you sure?")) props.deleteEmployee(employee.id)}} className="DeleteButton">
                     <DeleteIcon />
                 </IconButton>
             </td>
@@ -59,7 +57,7 @@ function EmployeeTable(props){
 
     return (
         <div className='Body'>
-            {!props.isLoading && employeeTable}
+            {employeeTable}
         </div>
     )
 }

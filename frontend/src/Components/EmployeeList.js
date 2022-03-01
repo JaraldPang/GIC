@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Button, Table } from 'reactstrap';
+import React, { useEffect } from 'react';
+import { Button } from 'reactstrap';
 import { connect } from "react-redux";
-import employeeAPI from '../Axios/API';
 
 import '../Styles/Body.css';
+import { useHistory } from "react-router-dom";
 import { getEmployees } from '../Actions/UserActions';
 import EmployeeTable from './EmployeeTable';
 
@@ -11,7 +11,7 @@ import EmployeeTable from './EmployeeTable';
 function mapStateToProps(state){
         return {
             allEmployees: state.allEmployees,
-            selectedEmployee: state.selectedEmployee
+            isReady: state.isReady
         }
     }
 
@@ -21,25 +21,23 @@ function mapDispatchToProps(dispatch){
     }
 }
 
+
 function EmployeeList(props){
-    const [allEmployees, setAllEmployees] = useState([]);
-    const [isReady, setIsReady] = useState(false);
-    async function getData(){
-        await employeeAPI.get().then(result => {
-            setAllEmployees(result.data)
-        }).catch(error => console.log(error));
-    }
     useEffect(()=> {
-        getData();
-        setIsReady(true);
+        props.getEmployees();
     }, [])
+
+    let history = useHistory();
+    const routeToAddPage = () =>{
+        history.push('/employee/add')
+    }
 
     return (
         <div className='Body'>
             <div style={{position:"absolute", right:"5%"}}>
-                <Button color="success" onClick={()=>{}}>Add Employee</Button>
+                <Button color="success" onClick={()=>{routeToAddPage()}}>Add Employee</Button>
             </div>
-            {isReady && <EmployeeTable allEmployees={allEmployees}/>}
+            {props.isReady && <EmployeeTable allEmployees={props.allEmployees}/>}
         </div>
     )
 }

@@ -17,6 +17,18 @@ export function addEmployee(newEmployee){
 
 export function editEmployee(updatedEmployee){
     return function(dispatch){
-        return dispatch({type: action.EDIT_EMPLOYEE, payload:updatedEmployee})
+        return dispatch({type: action.EDIT_EMPLOYEE, payload: updatedEmployee})
+    }
+}
+
+export function selectEmployee(selectEmployee){
+    return function(dispatch){
+        return dispatch({type: action.SELECT_EMPLOYEE, payload: selectEmployee})
+    }
+}
+
+export function deleteEmployee(deleteEmployee){
+    return function(dispatch){
+        return dispatch({type: action.DELETE_EMPLOYEE, payload: deleteEmployee})
     }
 }
