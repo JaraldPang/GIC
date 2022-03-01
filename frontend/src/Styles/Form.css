@@ -1,0 +1,29 @@
+.Form {
+    background-color: #293f6b;
+    min-height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    font-size: calc(10px + 2vmin);
+    color: white;
+    padding: 5%
+  }
+
+.first-half {
+    float: left;
+    justify-content: center;
+    text-align: left;
+    width: 40%;
+    margin:2%
+}
+.second-half {
+    float: left;
+    justify-content: center;
+    text-align: left;
+    width: 40%;
+    margin: 2%
+}
+.submit {
+    width: 100%;
+}

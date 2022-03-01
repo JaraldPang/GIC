@@ -21,8 +21,9 @@ function EmployeeReducer(state = initialState, action){
 
     if (action.type === EDIT_EMPLOYEE){
         const newEmployee = action.payload;
-        const indexOfOldEmployee = state.employees.indexOf(state.employees.filter(({ id }) => id === newEmployee.id)[0]);
-        const newEmployeesList = state.employees;
+        console.log(newEmployee)
+        const indexOfOldEmployee = state.allEmployees.indexOf(state.allEmployees.filter(({ id }) => id === newEmployee.id)[0]);
+        const newEmployeesList = state.allEmployees;
         newEmployeesList[indexOfOldEmployee] = newEmployee;
         return Object.assign({}, state, {
             allEmployees: newEmployeesList

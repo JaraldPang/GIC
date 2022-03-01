@@ -1,27 +1,25 @@
 import React from 'react';
 import { Table } from 'reactstrap';
 import { connect } from "react-redux";
-import { Button } from 'reactstrap';
 import { useHistory } from "react-router-dom";
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import EditIcon from '@material-ui/icons/Edit';
 import '../Styles/Body.css';
-import { deleteEmployee } from '../Actions/UserActions';
+import { deleteEmployee, selectEmployee } from '../Actions/UserActions';
+
 
 function mapDispatchToProps(dispatch){
     return{
-        getEmployees: employeeID => dispatch(deleteEmployee(employeeID))
+        deleteEmployees: employeeID => dispatch(deleteEmployee(employeeID)),
+        selectEmployee: employee => dispatch(selectEmployee(employee))
     }
 }
 
 function EmployeeTable(props){
     let history = useHistory();
-    const routeToEditPage = (id) =>{
+    const routeToEditPage = () =>{
         history.push('/employee/edit')
-    }
-    const routeToAddPage = () =>{
-        history.push('/employee/add')
     }
 
     const allEmployees = props.allEmployees;
@@ -39,18 +37,18 @@ function EmployeeTable(props){
         {allEmployees.map((employee, index) => (
         <tr style={{paddingLeft:'3%'}} key={index}>
             <td style={{whiteSpace: 'nowrap', width: "5%", textAlign:'left', verticalAlign:'middle'}}>{employee.id}</td>
-            <td style={{whiteSpace: 'nowrap', width: "25%", textAlign:'left', verticalAlign:'middle'}}>{employee.firstName}</td>
-            <td style={{whiteSpace: 'nowrap', width: "25%", textAlign:'left', verticalAlign:'middle'}}>{employee.lastName}</td>
-            <td style={{whiteSpace: 'nowrap', width: "20%", textAlign:'left', verticalAlign:'middle'}}>{employee.email}</td>
-            <td style={{whiteSpace: 'nowrap', width: "20%", textAlign:'left', verticalAlign:'middle'}}>{employee.number}</td>
-            <td style={{whiteSpace: 'nowrap', width: "20%", textAlign:'left', verticalAlign:'middle'}}>{employee.gender}</td>
+            <td style={{whiteSpace: 'nowrap', width: "17%", textAlign:'left', verticalAlign:'middle'}}>{employee.firstName}</td>
+            <td style={{whiteSpace: 'nowrap', width: "17%", textAlign:'left', verticalAlign:'middle'}}>{employee.lastName}</td>
+            <td style={{whiteSpace: 'nowrap', width: "25%", textAlign:'left', verticalAlign:'middle'}}>{employee.email}</td>
+            <td style={{whiteSpace: 'nowrap', width: "17%", textAlign:'left', verticalAlign:'middle'}}>{employee.number}</td>
+            <td style={{whiteSpace: 'nowrap', width: "10%", textAlign:'left', verticalAlign:'middle'}}>{employee.gender}</td>
             <td style={{width:"5%", textAlign: 'right'}}>
-                <IconButton onClick={()=>{routeToEditPage(employee)}} className="EditButton">
+                <IconButton onClick={()=>{routeToEditPage(employee); props.selectEmployee(employee);}} className="EditButton">
                     <EditIcon />
                 </IconButton>
             </td>
             <td style={{width:"5%", textAlign:'left'}}>
-                <IconButton onClick={()=>{if (window.confirm("Are you sure?")) props.deleteEmployee(employee.id)}} className="DeleteButton">
+                <IconButton onClick={()=>{if (window.confirm("Are you sure?")) console.log(employee); props.deleteEmployee(employee.id)}} className="DeleteButton">
                     <DeleteIcon />
                 </IconButton>
             </td>

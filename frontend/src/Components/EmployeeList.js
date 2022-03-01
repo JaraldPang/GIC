@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Button } from 'reactstrap';
 import { connect } from "react-redux";
-
 import '../Styles/Body.css';
 import { useHistory } from "react-router-dom";
 import { getEmployees } from '../Actions/UserActions';
@@ -11,6 +10,7 @@ import EmployeeTable from './EmployeeTable';
 function mapStateToProps(state){
         return {
             allEmployees: state.allEmployees,
+            selectedEmployee: state.selectedEmployee,
             isReady: state.isReady
         }
     }
@@ -24,7 +24,9 @@ function mapDispatchToProps(dispatch){
 
 function EmployeeList(props){
     useEffect(()=> {
-        props.getEmployees();
+        if(!props.isReady){
+            props.getEmployees();
+        }
     }, [])
 
     let history = useHistory();
