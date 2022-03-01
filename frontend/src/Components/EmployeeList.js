@@ -33,7 +33,7 @@ function EmployeeList(props){
     }
 
     return (
-        <div className='Body'>
+        <div>
             <div style={{position:"absolute", right:"5%"}}>
                 <Button color="success" onClick={()=>{routeToAddPage()}}>Add Employee</Button>
             </div>

@@ -40,6 +40,8 @@ function EmployeeReducer(state = initialState, action){
             allEmployees: state.allEmployees.filter(({ id }) => id !== action.payload)
         });
     }
+
+    return {...state}
 }
 
 export default EmployeeReducer;
