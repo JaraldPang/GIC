@@ -3,3 +3,4 @@ MongoDB Docker-compose File:
 Spring Boot Backend:
 	Use any IDE to run the test, after mongo container is running
 React Frontend
+	npm start

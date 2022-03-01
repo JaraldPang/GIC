@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from "react-redux";
 import { Button, Form, FormGroup, Input, Label } from 'reactstrap';
 import { addEmployee, editEmployee, selectEmployee } from '../Actions/UserActions';
